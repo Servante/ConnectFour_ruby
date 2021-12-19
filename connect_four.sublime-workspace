@@ -316,7 +316,7 @@
 			"file": "lib/board.rb",
 			"settings":
 			{
-				"buffer_size": 1086,
+				"buffer_size": 1166,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -630,20 +630,21 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1086,
+						"buffer_size": 1166,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								42,
-								42
+								1166,
+								1166
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
