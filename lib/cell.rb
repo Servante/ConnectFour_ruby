@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Cell
-	attr_accessor
+	attr_accessor :value, :stackable
 
 	def initialize(value = "-", stackable = false)
 		@value = value
