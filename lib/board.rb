@@ -48,7 +48,7 @@ class Board
 				array << new_cell
 			end
 			counter_s = counter.to_i
-			hash["row_#{counter_s}"] = array
+			hash[("row_#{counter_s}").to_sym] = array
 			counter += 1
 		end
 		return hash

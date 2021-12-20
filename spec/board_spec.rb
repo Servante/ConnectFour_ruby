@@ -17,21 +17,21 @@ describe Board do
 			end
 
 			it 'the row_6 cells are stackable' do
-				cells = board.cells["row_6"]
+				cells = board.cells[:row_6]
 				stackable = cells.collect {|c| c.stackable}
 				expect(stackable.all?).to be(true)
 			end
 
 			it 'the rows_1..5 are not stackable' do
-				row1 = board.cells["row_1"]
+				row1 = board.cells[:row_1]
 				stack1 = row1.collect {|c| c.stackable}
-				row2 = board.cells["row_2"]
+				row2 = board.cells[:row_2]
 				stack2 = row1.collect {|c| c.stackable}
-				row3 = board.cells["row_3"]
+				row3 = board.cells[:row_3]
 				stack3 = row1.collect {|c| c.stackable}
-				row4 = board.cells["row_4"]
+				row4 = board.cells[:row_4]
 				stack4 = row1.collect {|c| c.stackable}
-				row5 = board.cells["row_5"]
+				row5 = board.cells[:row_5]
 				stack5 = row1.collect {|c| c.stackable}
 				expect(stack1.all?).to be(false)
 				expect(stack2.all?).to be(false)
@@ -41,44 +41,4 @@ describe Board do
 			end
 		end
 	end
-
-
-
-	# describe '#create_cell' do		
-
-	# 	context 'if a new cell with a counter of 1 is created '
-
-	# 	it 'creates a new cell' do
-	# 		counter = 1
-	# 		expect(Cell).to receive(:new).exactly(43).times
-	# 		board.create_cell(counter)
-	# 	end
-
-	# 	xit 'will contain a "-" value as default' do
-	# 		cell = board.create_cell
-	# 		expect(cell.value).to be("-")
-	# 	end
-
-	# 	xit 'will contain "false" as a default' do
-	# 		new_cell = board.create_cell
-	# 		expect(new_cell.stackable).to be(false)
-	# 	end
-	# end
-
-
-	# describe 'create_board' do
-	# 	context 'when create board is run' do
-
-	# 		before do
-	# 			new_cell = Cell.new("-", false)
-	# 			allow(board).to receive(:create_cell).and_return(new_cell)
-	# 		end
-
-
-	# 		it 'creates a new hash' do
-	# 			new_board = board.create_board
-	# 			expect(new_board).to be_a(Hash)
-	# 		end
-	# 	end
-	# end
 end
