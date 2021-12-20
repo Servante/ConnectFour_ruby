@@ -19,17 +19,19 @@ class Board
 
 		puts <<-HEREDOC
 
-		 #{cells[0]} |  #{cells[1]} |  #{cells[2]} |  #{cells[3]} |  #{cells[4]} |  #{cells[5]} |  #{cells[6]}
+		 1 |  2 |  3 |  4 |  5 |  6 |  7
 		---+----+----+----+----+----+----
-		 #{cells[7]} |  #{cells[8]} | #{cells[9]} | #{cells[10]} | #{cells[11]} | #{cells[12]} | #{cells[13]}
+		 #{cells[:row_1][0].value} |  #{cells[:row_1][1].value} |  #{cells[:row_1][2].value} |  #{cells[:row_1][3].value} |  #{cells[:row_1][4].value} |  #{cells[:row_1][5].value} |  #{cells[:row_1][6].value}
 		---+----+----+----+----+----+----
-		#{cells[14]} | #{cells[15]} | #{cells[16]} | #{cells[17]} | #{cells[18]} | #{cells[19]} | #{cells[20]}
+		 #{cells[:row_2][0].value} |  #{cells[:row_2][1].value} |  #{cells[:row_2][2].value} |  #{cells[:row_2][3].value} |  #{cells[:row_2][4].value} |  #{cells[:row_2][5].value} |  #{cells[:row_2][6].value}
 		---+----+----+----+----+----+----
-		#{cells[21]} | #{cells[22]} | #{cells[23]} | #{cells[24]} | #{cells[25]} | #{cells[26]} | #{cells[27]}
+		 #{cells[:row_3][0].value} |  #{cells[:row_3][1].value} |  #{cells[:row_3][2].value} |  #{cells[:row_3][3].value} |  #{cells[:row_3][4].value} |  #{cells[:row_3][5].value} |  #{cells[:row_3][6].value}
 		---+----+----+----+----+----+----
-		#{cells[28]} | #{cells[29]} | #{cells[30]} | #{cells[31]} | #{cells[32]} | #{cells[33]} | #{cells[34]}
+		 #{cells[:row_4][0].value} |  #{cells[:row_4][1].value} |  #{cells[:row_4][2].value} |  #{cells[:row_4][3].value} |  #{cells[:row_4][4].value} |  #{cells[:row_4][5].value} |  #{cells[:row_4][6].value}
 		---+----+----+----+----+----+----
-		#{cells[35]} | #{cells[36]} | #{cells[37]} | #{cells[38]} | #{cells[39]} | #{cells[40]} | #{cells[41]}
+		 #{cells[:row_5][0].value} |  #{cells[:row_5][1].value} |  #{cells[:row_5][2].value} |  #{cells[:row_5][3].value} |  #{cells[:row_5][4].value} |  #{cells[:row_5][5].value} |  #{cells[:row_5][6].value}
+		---+----+----+----+----+----+----
+		 #{cells[:row_6][0].value} |  #{cells[:row_6][1].value} |  #{cells[:row_6][2].value} |  #{cells[:row_6][3].value} |  #{cells[:row_6][4].value} |  #{cells[:row_6][5].value} |  #{cells[:row_6][6].value}
 		---+----+----+----+----+----+----
 
 		HEREDOC
