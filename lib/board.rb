@@ -12,37 +12,8 @@ class Board
 		attr_accessor :cells
 
 	def initialize
-		# @cells = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42]
-		# @cells = {"row_1" => [0,1,2,3,4,5,6],
-					    # "row_2" => [7,8,9,10,11,12,13],
-					    # "row_3" => [14,15,16,17,18,19,20],
-					    # "row_4" => [21,22,23,24,25,26,27],
-					    # "row_5" => [28,29,30,31,32,33,34],
-					    # "row_6" => [35,36,37,38,39,40,41]}
+		@cells = create_board
 	end
-
-	def create_board
-		hash = []
-		counter = 1
-		(6).times do 
-			array = []
-			(7).times do 
-				new_cell = create_cell
-				array << new_cell
-			end
-			# binding.pry
-			hash["row_#{counter}"] = array
-			counter += 1
-		end
-		return hash
-	end
-
-	def create_cell
-		Cell.new
-	end
-
-
-
 
 	def show
 
@@ -63,6 +34,33 @@ class Board
 
 		HEREDOC
 
+	end
+
+	private
+
+	def create_board
+		hash = Hash.new
+		counter = 1
+		(6).times do 
+			array = []
+			(7).times do 
+				new_cell = create_cell(counter)
+				array << new_cell
+			end
+			counter_s = counter.to_i
+			hash["row_#{counter_s}"] = array
+			counter += 1
+		end
+		return hash
+	end
+
+	def create_cell(counter)
+		if counter == 6
+			new_cell = Cell.new("-", true)
+		elsif
+			new_cell = Cell.new
+		end
+		return new_cell
 	end
 
 end
