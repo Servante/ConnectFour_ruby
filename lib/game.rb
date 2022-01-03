@@ -42,5 +42,13 @@ class Game
 	def game_turns
 	end
 
+	def player_input(player)
+		display_move_prompt(@current_player)
+		input = gets.chomp.to_i
+		return input if board.valid_move?(input)
+		display_invalid_input
+		player_input(player)
+	end
+
 
 end
