@@ -14,6 +14,10 @@ class Game
 		@board = Board.new
 	end
 
+	def play_game
+	end
+
+
 	def player_creation
 		player_number = player1.nil? ? 1 : 2
 		display_new_player(player_number)
@@ -24,6 +28,9 @@ class Game
 		return player
 	end
 
+	def player_turn
+	end
+
 	private
 
 	def game_setup
@@ -31,5 +38,9 @@ class Game
 		@player1 = player_creation
 		@player2 = player_creation
 	end
-	
+
+	def game_turns
+	end
+
+
 end
