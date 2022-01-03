@@ -23,4 +23,13 @@ class Game
 		@current_player = player if @current_player.nil?
 		return player
 	end
+
+	private
+
+	def game_setup
+		display_introduction
+		@player1 = player_creation
+		@player2 = player_creation
+	end
+	
 end
