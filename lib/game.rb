@@ -45,10 +45,8 @@ class Game
 	def player_input(player)
 		display_move_prompt(@current_player)
 		input = gets.chomp.to_i
-		return input if board.valid_move?(input)
+		return input unless board.column_full?((input - 1))
 		display_invalid_input
 		player_input(player)
 	end
-
-
 end
