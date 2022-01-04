@@ -21,17 +21,17 @@ class Board
 
 		 1 |  2 |  3 |  4 |  5 |  6 |  7
 		---+----+----+----+----+----+----
-		 #{cells[:row_1][0].value} |  #{cells[:row_1][1].value} |  #{cells[:row_1][2].value} |  #{cells[:row_1][3].value} |  #{cells[:row_1][4].value} |  #{cells[:row_1][5].value} |  #{cells[:row_1][6].value}
+		 #{cells[1][0].value} |  #{cells[1][1].value} |  #{cells[1][2].value} |  #{cells[1][3].value} |  #{cells[1][4].value} |  #{cells[1][5].value} |  #{cells[1][6].value}
 		---+----+----+----+----+----+----
-		 #{cells[:row_2][0].value} |  #{cells[:row_2][1].value} |  #{cells[:row_2][2].value} |  #{cells[:row_2][3].value} |  #{cells[:row_2][4].value} |  #{cells[:row_2][5].value} |  #{cells[:row_2][6].value}
+		 #{cells[2][0].value} |  #{cells[2][1].value} |  #{cells[2][2].value} |  #{cells[2][3].value} |  #{cells[2][4].value} |  #{cells[2][5].value} |  #{cells[2][6].value}
 		---+----+----+----+----+----+----
-		 #{cells[:row_3][0].value} |  #{cells[:row_3][1].value} |  #{cells[:row_3][2].value} |  #{cells[:row_3][3].value} |  #{cells[:row_3][4].value} |  #{cells[:row_3][5].value} |  #{cells[:row_3][6].value}
+		 #{cells[3][0].value} |  #{cells[3][1].value} |  #{cells[3][2].value} |  #{cells[3][3].value} |  #{cells[3][4].value} |  #{cells[3][5].value} |  #{cells[3][6].value}
 		---+----+----+----+----+----+----
-		 #{cells[:row_4][0].value} |  #{cells[:row_4][1].value} |  #{cells[:row_4][2].value} |  #{cells[:row_4][3].value} |  #{cells[:row_4][4].value} |  #{cells[:row_4][5].value} |  #{cells[:row_4][6].value}
+		 #{cells[4][0].value} |  #{cells[4][1].value} |  #{cells[4][2].value} |  #{cells[4][3].value} |  #{cells[4][4].value} |  #{cells[4][5].value} |  #{cells[4][6].value}
 		---+----+----+----+----+----+----
-		 #{cells[:row_5][0].value} |  #{cells[:row_5][1].value} |  #{cells[:row_5][2].value} |  #{cells[:row_5][3].value} |  #{cells[:row_5][4].value} |  #{cells[:row_5][5].value} |  #{cells[:row_5][6].value}
+		 #{cells[5][0].value} |  #{cells[5][1].value} |  #{cells[5][2].value} |  #{cells[5][3].value} |  #{cells[5][4].value} |  #{cells[5][5].value} |  #{cells[5][6].value}
 		---+----+----+----+----+----+----
-		 #{cells[:row_6][0].value} |  #{cells[:row_6][1].value} |  #{cells[:row_6][2].value} |  #{cells[:row_6][3].value} |  #{cells[:row_6][4].value} |  #{cells[:row_6][5].value} |  #{cells[:row_6][6].value}
+		 #{cells[6][0].value} |  #{cells[6][1].value} |  #{cells[6][2].value} |  #{cells[6][3].value} |  #{cells[6][4].value} |  #{cells[6][5].value} |  #{cells[6][6].value}
 		---+----+----+----+----+----+----
 
 		HEREDOC
@@ -45,7 +45,10 @@ class Board
 		arr.any?('-') ? false : true
 	end
 
-	
+	def set_token(column)
+	end
+
+
 
 	private
 
@@ -59,7 +62,7 @@ class Board
 				array << new_cell
 			end
 			counter_s = counter.to_i
-			hash[("row_#{counter_s}").to_sym] = array
+			hash[counter_s] = array
 			counter += 1
 		end
 		return hash

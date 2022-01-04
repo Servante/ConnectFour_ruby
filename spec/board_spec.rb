@@ -19,15 +19,15 @@ describe Board do
 
 
 			it 'creates unstackable cells for rows_1..5' do
-				row1 = board.cells[:row_1]
+				row1 = board.cells[1]
 				stack1 = row1.collect {|c| c.stackable}
-				row2 = board.cells[:row_2]
+				row2 = board.cells[2]
 				stack2 = row2.collect {|c| c.stackable}
-				row3 = board.cells[:row_3]
+				row3 = board.cells[3]
 				stack3 = row3.collect {|c| c.stackable}
-				row4 = board.cells[:row_4]
+				row4 = board.cells[4]
 				stack4 = row4.collect {|c| c.stackable}
-				row5 = board.cells[:row_5]
+				row5 = board.cells[5]
 				stack5 = row5.collect {|c| c.stackable}
 				expect(stack1.all?).to be(false)
 				expect(stack2.all?).to be(false)
@@ -37,7 +37,7 @@ describe Board do
 			end
 
 			it 'creates stackable cells for row_6' do
-				cells = board.cells[:row_6]
+				cells = board.cells[6]
 				stackable = cells.collect {|c| c.stackable}
 				expect(stackable.all?).to be(true)
 			end
@@ -57,7 +57,7 @@ describe Board do
 		context 'when the player enters a column that is partial full' do
 
 			before do 
-				board.cells[:row_1][0].value = "token"
+				board.cells[1][0].value = "token"
 			end
 
 			it 'returns false' do
@@ -69,12 +69,12 @@ describe Board do
 		context 'when a player enters a column that is full' do
 
 			before do 
-				board.cells[:row_1][0].value = "token"
-				board.cells[:row_2][0].value = "token"
-				board.cells[:row_3][0].value = "token"
-				board.cells[:row_4][0].value = "token"
-				board.cells[:row_5][0].value = "token"
-				board.cells[:row_6][0].value = "token"
+				board.cells[1][0].value = "token"
+				board.cells[2][0].value = "token"
+				board.cells[3][0].value = "token"
+				board.cells[4][0].value = "token"
+				board.cells[5][0].value = "token"
+				board.cells[6][0].value = "token"
 			end
 
 			it 'returns true' do
