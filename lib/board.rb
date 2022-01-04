@@ -38,6 +38,15 @@ class Board
 
 	end
 
+
+	def column_full?(input)
+		arr = []
+		@cells.each_key {|k| arr << @cells[k][input].value}
+		arr.any?('-') ? false : true
+	end
+
+	
+
 	private
 
 	def create_board
@@ -65,4 +74,6 @@ class Board
 		return new_cell
 	end
 
+	def valid_move?(input)
+	end
 end

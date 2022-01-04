@@ -2,13 +2,14 @@
 
 require_relative '../lib/board.rb'
 require_relative '../lib/cell.rb'
+require 'pry'
 
 
 describe Board do
 
 	subject(:board) {described_class.new} 
 
-	describe 'initialize' do
+	describe '#initialize' do
 
 		context 'when class is initialized' do
 			it 'creates instance variable @cells that contains a hash of cells' do
@@ -39,6 +40,46 @@ describe Board do
 				cells = board.cells[:row_6]
 				stackable = cells.collect {|c| c.stackable}
 				expect(stackable.all?).to be(true)
+			end
+		end
+	end
+
+	describe '#column_full?' do 
+
+		context 'when the player enters a column that is empty' do
+
+			it 'returns false' do
+				full = board.column_full?(0)
+				expect(full).to be(false)
+			end
+		end
+
+		context 'when the player enters a column that is partial full' do
+
+			before do 
+				board.cells[:row_1][0].value = "token"
+			end
+
+			it 'returns false' do
+				full = board.column_full?(0)
+				expect(full).to be(false)
+			end
+		end
+
+		context 'when a player enters a column that is full' do
+
+			before do 
+				board.cells[:row_1][0].value = "token"
+				board.cells[:row_2][0].value = "token"
+				board.cells[:row_3][0].value = "token"
+				board.cells[:row_4][0].value = "token"
+				board.cells[:row_5][0].value = "token"
+				board.cells[:row_6][0].value = "token"
+			end
+
+			it 'returns true' do
+				full = board.column_full?(0)
+				expect(full).to be(true)
 			end
 		end
 	end
