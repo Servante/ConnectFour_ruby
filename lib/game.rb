@@ -42,6 +42,10 @@ class Game
 	def game_turns
 	end
 
+	def switch_current_player
+		@current_player = @current_player == @player1 ? @player2 : @player1
+	end
+
 	def player_input(player)
 		display_move_prompt(@current_player)
 		input = gets.chomp.to_i
