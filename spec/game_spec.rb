@@ -61,4 +61,22 @@ describe Game do
 			end
 		end
 	end
+
+	describe '#player_turn' do
+
+		before do
+			player1 = Player.new("wes", "X")
+			game.instance_variable_set(:@current_player, player1)
+			allow(game.board).to receive(:show)
+			allow(game).to receive(:player_input).and_return(3)
+		end
+
+
+
+		it 'updates the board' do			
+			expect(game.board).to receive(:set_token)
+			game.player_turn
+		end
+
+	end
 end

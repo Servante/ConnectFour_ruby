@@ -29,6 +29,11 @@ class Game
 	end
 
 	def player_turn
+		@board.show
+		column = player_input(@current_player)
+		token = @current_player.token
+		board.set_token(column, token)
+		@current_player = switch_current_player
 	end
 
 	private
