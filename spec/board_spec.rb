@@ -83,4 +83,41 @@ describe Board do
 			end
 		end
 	end
+
+	describe '#set_token' do
+
+		context 'when set_token is called on an empty column' do
+
+			it 'sets the token on the bottommost cell' do
+				token = "X"
+				board.set_token(3, token)
+				expect(board.cells[6][3].value).to eq(token)
+			end
+
+			it 'sets the above cell\'s @stackable to true' do
+				above_cell = board.cells[5][3]
+				token = "X"
+				board.set_token(3, token)
+				expect(above_cell.stackable).to be(true)
+			end
+
+			it 'sets current cell\'s @stackable to false' do
+				token = "X"
+				board.set_token(3, token)
+				expect(board.cells[6][3].stackable).to be(false)
+			end
+		end
+
+		context 'when set_token is called on a column with two tokens existing' do
+
+			it 'sets the token to the 3rd from bottom cell' do
+				token = "X"
+				board.set_token(3, token)
+				board.set_token(3, token)
+				board.set_token(3, token)
+				third_up = board.cells[4][3]
+				expect(third_up.value).to eq(token)
+			end
+		end
+	end
 end
