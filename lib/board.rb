@@ -45,6 +45,17 @@ class Board
 		arr.any?('-') ? false : true
 	end
 
+	def board_full? 
+		counter = 0
+		full_columns = 0
+		until counter == 7
+			full_columns += 1 if column_full?(counter)
+			counter += 1
+		end
+		full_columns >= 7 ? true : false
+	end
+
+
 	def set_token(column, token, row = 1)
 		if @cells[row][column].stackable == true
 			@cells[row][column].stackable = false
@@ -54,8 +65,6 @@ class Board
 			set_token(column, token, row + 1)
 		end
 	end
-
-
 
 	private
 

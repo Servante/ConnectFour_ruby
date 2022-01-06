@@ -12,6 +12,7 @@ describe Board do
 	describe '#initialize' do
 
 		context 'when class is initialized' do
+
 			it 'creates instance variable @cells that contains a hash of cells' do
 				board = Board.new
 				expect(board.cells).to be_a(Hash)
@@ -117,6 +118,50 @@ describe Board do
 				board.set_token(3, token)
 				third_up = board.cells[4][3]
 				expect(third_up.value).to eq(token)
+			end
+		end
+	end
+
+	describe '#board_full?' do 
+
+		context 'when no columns are full' do
+
+			it 'returns false' do
+				expect(board).not_to be_board_full
+			end
+		end
+
+		context 'when 3 columns are full' do
+
+			before do
+				board.cells.each do |k, v|
+					counter = 0 
+					until counter == 3
+						board.cells[k][counter].value = "x"
+						counter +=1
+					end
+				end
+			end
+
+			it 'returns false' do
+				expect(board).not_to be_board_full
+			end
+		end
+
+		context 'when all columns are full' do
+
+			before do
+				board.cells.each do |k, v|
+					counter = 0 
+					until counter == 7
+						board.cells[k][counter].value = "x"
+						counter +=1
+					end
+				end
+			end
+
+			it 'returns true' do
+				expect(board).to be_board_full
 			end
 		end
 	end

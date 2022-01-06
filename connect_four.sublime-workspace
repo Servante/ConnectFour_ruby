@@ -308,10 +308,13 @@
 			}
 		},
 		{
+			"contents": "# frozen_string_literal: true\nrequire_relative 'display.rb'\n\n\n\nclass Game\n\tinclude Display\n\tattr_accessor :player1, :player2, :current_player, :board\n\n\tdef initialize\n\t\t@player1 = nil\n\t\t@player2 = nil\t\n\t\t@current_player = nil\n\t\t@board = Board.new\n\tend\n\n\tdef play_game\n\tend\n\n\n\tdef player_creation\n\t\tplayer_number = player1.nil? ? 1 : 2\n\t\tdisplay_new_player(player_number)\n\t\tname = gets.chomp\n\t\ttoken = player_number == 1 ? \"\\e[32m\\u2620\\e[0m\" : \"\\e[35m\\u2620\\e[0m\"\n\t\tplayer = Player.new(name, token)\n\t\t@current_player = player if @current_player.nil?\n\t\treturn player\n\tend\n\n\tdef player_turn\n\t\t@board.show\n\t\tcolumn = player_input(@current_player)\n\t\t# token = @current_player.token\n\t\tboard.set_token(column, @current_player.token)\n\t\t@current_player = switch_current_player\n\tend\n\n\tprivate\n\n\tdef game_setup\n\t\tdisplay_introduction\n\t\t@player1 = player_creation\n\t\t@player2 = player_creation\n\tend\n\n\tdef game_turns\n\tend\n\n\tdef switch_current_player\n\t\t@current_player = @current_player == @player1 ? @player2 : @player1\n\tend\n\n\tdef player_input(player)\n\t\tdisplay_move_prompt(@current_player)\n\t\tinput = gets.chomp.to_i\n\t\treturn input unless board.column_full?((input - 1))\n\t\tdisplay_invalid_input\n\t\tplayer_input(player)\n\tend\nend",
 			"file": "lib/game.rb",
+			"file_size": 1195,
+			"file_write_time": 132858779458242180,
 			"settings":
 			{
-				"buffer_size": 930,
+				"buffer_size": 1213,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -320,7 +323,7 @@
 			"file": "lib/board.rb",
 			"settings":
 			{
-				"buffer_size": 2460,
+				"buffer_size": 2605,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -353,10 +356,13 @@
 			}
 		},
 		{
+			"contents": "\n# frozen_string_literal: true\n\nrequire '../lib/game.rb'\nrequire '../lib/board.rb'\nrequire '../lib/cell.rb'\nrequire '../lib/player.rb'\nrequire '../lib/display.rb'\nrequire 'pry'\n\n\n\ndescribe Game do \n\n\tsubject (:game) {described_class.new}\n\n\n\tdescribe '#player_creation' do \n\n\t\tbefore do\n\t\t\t\tplayer1 = \"wes\"\n\t\t\t\tplayer2 = \"bria\"\n\t\t\t\tallow(game).to receive(:puts)\n\t\t\t\tallow(game).to receive(:gets).and_return(player1, player2)\n\t\t\t\t# allow(game).to receive(:gets).and_return(player2)\n\t\t\tend\n\n\t\tcontext 'when player creation is called and there is not a current_player' do\n\n\t\t\tit 'creates a new player' do\n\t\t\t\texpect(Player).to receive(:new)\n\t\t\t\tgame.player_creation\n\t\t\tend\n\n\t\t\tit 'with a green skull and crossbones as a token' do\n\t\t\t\tplayer = game.player_creation\n\t\t\t\texpect(player.token).to eq(\"\\e[32m\\u2620\\e[0m\")\n\t\t\tend\n\n\t\t\tit 'sets player1 as @current_player' do\n\t\t\t\tplayer = game.player_creation\n\t\t\t\texpect(game.current_player).to be(player)\n\t\t\tend\n\t\tend\n\n\t\tcontext 'when player creation is called for player2' do\n\n\t\t\tbefore do\n\t\t\t\tplayer1 = game.player_creation\n\t\t\t\tgame.instance_variable_set(:@player1, player1)\n\t\t\t\tplayer2 = game.player_creation\n\t\t\t\tgame.instance_variable_set(:@player2, player2)\n\t\t\tend\n\n\t\t\tit 'creates player 2 with magenta skull and crossbones for a token' do\n\t\t\t\texpect(game.player2.token).to be(\"\\e[35m\\u2620\\e[0m\")\n\t\t\tend\n\n\t\t\tit 'and leaves player1 as @current_player' do \n\t\t\t\texpect(game.current_player.name).to eq(\"wes\")\n\t\t\tend\n\t\tend\n\tend\n\n\tdescribe '#player_turn' do\n\n\t\tbefore do\n\t\t\tplayer1 = Player.new(\"wes\", \"X\")\n\t\t\tgame.instance_variable_set(:@current_player, player1)\n\t\t\tallow(game.board).to receive(:show)\n\t\t\tallow(game).to receive(:player_input).and_return(3)\n\t\tend\n\n\t\tit 'sends message to update the board' do\t\t\t\n\t\t\texpect(game.board).to receive(:set_token)\n\t\t\tgame.player_turn\n\t\tend\n\n\tend\nend\n",
 			"file": "spec/game_spec.rb",
+			"file_size": 1817,
+			"file_write_time": 132858789986831207,
 			"settings":
 			{
-				"buffer_size": 1471,
+				"buffer_size": 1831,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -373,7 +379,7 @@
 			"file": "spec/board_spec.rb",
 			"settings":
 			{
-				"buffer_size": 2924,
+				"buffer_size": 3654,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -424,6 +430,7 @@
 	},
 	"file_history":
 	[
+		"/home/wesley/Dropbox/ODIN/working_code/spec/15b_binary_search_spec.rb",
 		"/home/wesley/web_development/git_repositories/TicTacToe_ruby/lib/main.rb",
 		"/home/wesley/web_development/git_repositories/ConnectFour_ruby/lib/display.rb",
 		"/home/wesley/web_development/git_repositories/ruby_exercises/knight_travails/knight_travails.rb",
@@ -472,7 +479,6 @@
 		"/home/wesley/Dropbox/ODIN/working_code/spec/lib/15c_random_number.rb",
 		"/home/wesley/Dropbox/ODIN/working_code/spec/lib/15_binary_main.rb",
 		"/home/wesley/Dropbox/ODIN/working_code/spec/lib/15b_binary_search.rb",
-		"/home/wesley/Dropbox/ODIN/working_code/spec/15b_binary_search_spec.rb",
 		"/home/wesley/Dropbox/ODIN/working_code/ruby_testing/ruby_testing/spec_answers/15a_binary_game_answer.rb",
 		"/home/wesley/Dropbox/ODIN/working_code/balanced_bst.rb",
 		"/home/wesley/Dropbox/ODIN/working_code/retro_game_tool.rb",
@@ -586,7 +592,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -614,7 +620,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -623,15 +629,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 930,
+						"buffer_size": 1213,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								588,
-								588
+								725,
+								725
 							]
 						],
 						"settings":
@@ -643,7 +649,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -652,15 +658,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2460,
+						"buffer_size": 2605,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2046,
-								2046
+								1751,
+								1751
 							]
 						],
 						"settings":
@@ -669,7 +675,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 57.0,
+						"translation.y": 399.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -700,7 +706,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -716,8 +722,8 @@
 						"selection":
 						[
 							[
-								144,
-								144
+								24,
+								24
 							]
 						],
 						"settings":
@@ -728,7 +734,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -757,7 +763,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -772,15 +778,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1471,
+						"buffer_size": 1831,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								179,
-								179
+								1701,
+								1701
 							]
 						],
 						"settings":
@@ -789,10 +795,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -818,10 +824,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 228.0,
+						"translation.y": 114.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -830,15 +836,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2924,
+						"buffer_size": 3654,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2828,
-								2828
+								3419,
+								3564
 							]
 						],
 						"settings":
@@ -847,10 +853,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2166.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -932,7 +938,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 		"last_automatic_layout":
