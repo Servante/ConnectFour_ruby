@@ -1,1 +1,1 @@
-# Hangman_ruby
+# ConnectFour_ruby
