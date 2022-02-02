@@ -60,7 +60,6 @@ class Board
 		if @cells[row][column].stackable == true
 			@cells[row][column].stackable = false
 			@cells[row-1] == nil ? @cells[row][column].value = token : @cells[row-1][column].stackable = true ; @cells[row][column].value = token
-			@cells[row][column].value = token
 		else
 			set_token(column, token, row + 1)
 		end
