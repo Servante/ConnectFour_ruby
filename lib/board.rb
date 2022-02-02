@@ -60,6 +60,7 @@ class Board
 		if @cells[row][column].stackable == true
 			@cells[row][column].stackable = false
 			@cells[row-1] == nil ? @cells[row][column].value = token : @cells[row-1][column].stackable = true ; @cells[row][column].value = token
+			return row, column #returns cordinates for assigned cell. used for #checkwin
 		else
 			set_token(column, token, row + 1)
 		end
