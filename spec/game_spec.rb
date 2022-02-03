@@ -71,12 +71,30 @@ describe Game do
 			allow(game).to receive(:player_input).and_return(3)
 		end
 
-
-
-		it 'updates the board' do			
+		it 'sends message to update the board' do			
 			expect(game.board).to receive(:set_token)
 			game.player_turn
 		end
 
+	end
+
+	describe '#check_right' do
+
+		subject (:game) {described_class.new}
+
+		context 'when checking a row that has 3 tokens of the same player in a row' do 
+			it 'counts each and returns a tally of 3' do
+				game.board.set_token(1, "X")
+				game.board.set_token(2, "X")
+				game.board.set_token(3, "X")
+				tally = game.check_right(6, 0, 0)
+				expect(tally).to eq(3)
+			end
+		end
+
+		context 'when checking a row that has no other tokens to the right of the one placed' do
+			xit 'returns a tally of 1' do
+			end
+		end
 	end
 end

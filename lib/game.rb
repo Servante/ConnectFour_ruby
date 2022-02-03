@@ -31,8 +31,9 @@ class Game
 	def player_turn
 		@board.show
 		column = player_input(@current_player)
-		token = @current_player.token
-		board.set_token(column, token)
+		# token = @current_player.token
+		board.set_token(column, @current_player.token)
+		#board.checkwin(column, )
 		@current_player = switch_current_player
 	end
 
