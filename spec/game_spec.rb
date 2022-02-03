@@ -78,9 +78,37 @@ describe Game do
 
 	end
 
-	describe '#check_right' do
+# 	describe '#check_right' do
 
-		subject (:game) {described_class.new}
+# 		subject (:game) {described_class.new}
+
+# 		before do
+# 			player1 = Player.new("wes", "X")
+# 			game.instance_variable_set(:@current_player, player1)
+# 			game.board.set_token(1, "X")
+# 			game.board.set_token(2, "X")
+# 			game.board.set_token(3, "X")
+# 			game.board.set_token(4, "O")
+# 			game.board.set_token(1, "X")
+# 		end
+
+
+# 		context 'when checking a row that has 3 tokens of the same player and an opponent\'s token at the end' do 
+# 			it 'counts each and returns a tally of 3, ignoring the opponent\'s token' do
+# 				tally = game.check_right(6, 1, 0)
+# 				expect(tally).to eq(3)
+# 			end
+# 		end
+
+# 		context 'when checking a row that has no other tokens to the right of the one placed' do
+# 			it 'returns a tally of 1' do
+# 				tally = game.check_right(5, 1, 0)
+# 				expect(tally).to eq(1)
+# 			end
+# 		end
+# 	end
+
+	describe '#check_horizontal' do 
 
 		before do
 			player1 = Player.new("wes", "X")
@@ -88,23 +116,45 @@ describe Game do
 			game.board.set_token(1, "X")
 			game.board.set_token(2, "X")
 			game.board.set_token(3, "X")
+			game.board.set_token(4, "X")
 			game.board.set_token(4, "O")
-			game.board.set_token(1, "X")
 		end
 
-
-		context 'when checking a row that has 3 tokens of the same player and an opponent\'s token at the end' do 
-			it 'counts each and returns a tally of 3, ignoring the opponent\'s token' do
-				tally = game.check_right(6, 1, 0)
-				expect(tally).to eq(3)
+		context 'when checking a row with 4 subsequent tokens' do
+			it 'returns true' do
+				cords = [6, 1]
+				expect(game.check_horizontal(cords)).to be true
 			end
 		end
 
-		context 'when checking a row that has no other tokens to the right of the one placed' do
-			it 'returns a tally of 1' do
-				tally = game.check_right(5, 1, 0)
-				expect(tally).to eq(1)
+		context 'when checking a row with less than 4 subsequent tokens' do
+			it 'returns false' do
+				game.board.set_token(1, "X")
+				cords = [5, 1]
+				expect(game.check_horizontal(cords)).to be false
 			end
 		end
 	end
+
+	describe '#check_vertical' do
+
+		context 'when checking a column with 4 subsequent tokens' do
+			xit 'returns true' do
+				cords = [3, 3]
+				expect(game.check_vertical(cords)).to be true
+			end
+
+			context 'when checking a column with less than 4 subsequent tokens' do
+				xit 'returns false' do
+					cords = []
+					expect(game.check_vertical(cords)).to be false
+				end
+			end
+		end
+	end
+
 end
+
+
+
+

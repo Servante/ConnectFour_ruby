@@ -37,16 +37,16 @@ class Game
 		@current_player = switch_current_player
 	end
 
-	def check_right(row, column, tally)
-		# binding.pry
-		if board.cells[row][column].value == @current_player.token
-			tally += 1
-			check_right(row, column + 1, tally) unless (column + 1) == nil
-		else
-			return tally
-		end
+	def check_horizontal(cords)
+		tally = 0
+		row = cords[0]
+		column = cords[1]
+		tally_r = check_right(row, column, tally)
+		tally_l = check_left(row, column, tally)
+		((tally_r + tally_l) - 1) >= 4 ? true : false
 	end
 
+	
 	private
 
 	def game_setup
@@ -68,5 +68,23 @@ class Game
 		return input unless board.column_full?((input - 1))
 		display_invalid_input
 		player_input(player)
+	end
+
+	def check_right(row, column, tally)
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			check_right(row, column + 1, tally) unless (column + 1) == nil
+		else
+			return tally
+		end
+	end
+
+	def check_left(row, column, tally)
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			check_right(row, column - 1, tally) unless (column - 1) == nil
+		else
+			return tally
+		end
 	end
 end
