@@ -151,7 +151,7 @@ describe Game do
 		end
 
 		context 'when checking a column with 4 subsequent tokens' do
-			xit 'returns true' do
+			it 'returns true' do
 				cords = [3, 3]
 				expect(game.check_vertical(cords)).to be true
 			end

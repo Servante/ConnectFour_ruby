@@ -87,4 +87,22 @@ class Game
 			return tally
 		end
 	end
+
+	def check_up(row, column, tally)
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			check_right(row - 1, column, tally) unless (row - 1) == nil
+		else
+			return tally
+		end
+	end
+
+	def check_down(row, column, tally)
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			check_right(row + 1, column, tally) unless (row + 1) == nil
+		else
+			return tally
+		end
+	end
 end
