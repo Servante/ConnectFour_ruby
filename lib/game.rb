@@ -37,6 +37,16 @@ class Game
 		@current_player = switch_current_player
 	end
 
+	def check_right(row, column, tally)
+		# binding.pry
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			check_right(row, column + 1, tally) unless (column + 1) == nil
+		else
+			return tally
+		end
+	end
+
 	private
 
 	def game_setup

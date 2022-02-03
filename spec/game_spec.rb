@@ -82,12 +82,18 @@ describe Game do
 
 		subject (:game) {described_class.new}
 
+		before do
+			player1 = Player.new("wes", "X")
+			game.instance_variable_set(:@current_player, player1)
+			game.board.set_token(1, "X")
+			game.board.set_token(2, "X")
+			game.board.set_token(3, "X")
+		end
+
+
 		context 'when checking a row that has 3 tokens of the same player in a row' do 
 			it 'counts each and returns a tally of 3' do
-				game.board.set_token(1, "X")
-				game.board.set_token(2, "X")
-				game.board.set_token(3, "X")
-				tally = game.check_right(6, 0, 0)
+				tally = game.check_right(6, 1, 0)
 				expect(tally).to eq(3)
 			end
 		end
