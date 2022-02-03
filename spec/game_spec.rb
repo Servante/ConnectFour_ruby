@@ -138,6 +138,18 @@ describe Game do
 
 	describe '#check_vertical' do
 
+		before do
+			player1 = Player.new("wes", "X")
+			game.instance_variable_set(:@current_player, player1)
+			game.board.set_token(3, "O")
+			game.board.set_token(3, "X")
+			game.board.set_token(3, "X")
+			game.board.set_token(3, "X")
+			game.board.set_token(3, "X")
+			game.board.set_token(4, "X")
+			game.board.set_token(2, "X")
+		end
+
 		context 'when checking a column with 4 subsequent tokens' do
 			xit 'returns true' do
 				cords = [3, 3]
@@ -152,7 +164,6 @@ describe Game do
 			end
 		end
 	end
-
 end
 
 
