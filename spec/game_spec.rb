@@ -88,18 +88,22 @@ describe Game do
 			game.board.set_token(1, "X")
 			game.board.set_token(2, "X")
 			game.board.set_token(3, "X")
+			game.board.set_token(4, "O")
+			game.board.set_token(1, "X")
 		end
 
 
-		context 'when checking a row that has 3 tokens of the same player in a row' do 
-			it 'counts each and returns a tally of 3' do
+		context 'when checking a row that has 3 tokens of the same player and an opponent\'s token at the end' do 
+			it 'counts each and returns a tally of 3, ignoring the opponent\'s token' do
 				tally = game.check_right(6, 1, 0)
 				expect(tally).to eq(3)
 			end
 		end
 
 		context 'when checking a row that has no other tokens to the right of the one placed' do
-			xit 'returns a tally of 1' do
+			it 'returns a tally of 1' do
+				tally = game.check_right(5, 1, 0)
+				expect(tally).to eq(1)
 			end
 		end
 	end
