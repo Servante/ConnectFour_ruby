@@ -53,7 +53,7 @@ class Game
 		column = cords[1]
 		tally_u = check_up(row, column, tally)
 		tally_d = check_down(row, column, tally)
-		binding.pry
+		# binding.pry
 		((tally_u + tally_d) - 1) >= 4 ? true : false
 	end
 
@@ -100,9 +100,10 @@ class Game
 	end
 
 	def check_up(row, column, tally)
+		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
-			check_up(row - 1, column, tally) unless (row - 1) == nil
+			check_up(row - 1, column, tally) unless board.cells[row - 1] == nil
 		else
 			return tally
 		end
@@ -111,7 +112,7 @@ class Game
 	def check_down(row, column, tally)
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
-			check_down(row + 1, column, tally) unless (row + 1) == nil
+			check_up(row + 1, column, tally) unless board.cells[row + 1] == nil
 		else
 			return tally
 		end

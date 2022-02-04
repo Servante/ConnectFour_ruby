@@ -158,7 +158,7 @@ describe Game do
 
 			context 'when checking a column with less than 4 subsequent tokens' do
 				xit 'returns false' do
-					cords = []
+					cords = [6, 2]
 					expect(game.check_vertical(cords)).to be false
 				end
 			end
