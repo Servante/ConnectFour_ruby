@@ -54,7 +54,7 @@ class Game
 		column = cords[1]
 		tally_u = check_up(row, column, tally)
 		tally_d = check_down(row, column, tally)
-		# binding.pry
+		binding.pry
 		((tally_u + tally_d) - 1) >= 4 ? true : false
 	end
 

@@ -58,6 +58,8 @@ describe Game do
 		game.board.set_token(6, "O")
 		game.board.set_token(6, "X")
 		game.board.set_token(6, "X")
+		game.board.set_token(6, "X")
+		game.board.set_token(6, "X")
 	end
 
 
@@ -205,22 +207,58 @@ describe Game do
 			end
 		end
 
-		context 'when testing for edge case at top of board' do
-			it 'does not return any errors' do
-				cords = [1, 5]
-				expect(game).not_to receive(:puts)
-				game.check_vertical(cords)
+		context 'when testing a column with 4 subsequent tokens at top of board' do
+			it 'returns true' do
+				# game.	.instance_variable_set(:@token, "O")
+				cords = [1, 6]
+				expect(game.check_vertical(cords)).to be true
 			end
 		end
 	end
 
-	describe '#check_NE' do 
+	describe '#check_NE_SW' do 
 
 		before do
+			player2 = Player.new("bria", "O")
+			game.instance_variable_set(:@current_player, player2)
+		end
+
+		context 'when checking a diagonal with 4 or more tokens going NE to SW' do
+			it 'returns true' do
+				cords = [4, 2]
+				expect(game.check_NE_SW(cords)).to be true
+			end
+		end
+
+		context 'when checking a diagonal with less than 4 tokens going NE to SW' do
+			xit 'returns false' do
+				cords = [5, 2]
+				expect(game.check_NE_SW(cords)).to be false
+			end
 		end
 	end
 
+	describe '#check_NW_SE' do
 
+		before do
+			player1 = Player.new("wes", "X")
+			game.instance_variable_set(:@current_player, player1)
+		end
+
+		context 'when checking a diagonal with 4 or more tokens going NW to SE' do
+			xit 'returns true' do
+				cords = [3, 2]
+				expect(game.check_NW_SE(cords)).to be true
+			end
+		end
+
+		context 'when checking a diagonal with less than 4 tokens going NW to SE' do
+			xit 'returns false' do
+				cords = [4,4]
+				expect(game.check_NW_SE(cords)).to be false
+			end
+		end
+	end
 end
 
 
