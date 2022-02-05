@@ -84,7 +84,7 @@ class Game
 	def check_right(row, column, tally)
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
-			check_right(row, column + 1, tally) unless (column + 1) == nil
+			board.cells[row][column + 1] == nil ? tally : check_right(row, column + 1, tally)
 		else
 			return tally
 		end
@@ -93,7 +93,7 @@ class Game
 	def check_left(row, column, tally)
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
-			check_right(row, column - 1, tally) unless (column - 1) == nil
+			board.cells[row][column - 1] == nil ? tally : check_left(row, column - 1, tally)
 		else
 			return tally
 		end
@@ -103,7 +103,7 @@ class Game
 		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
-			check_up(row - 1, column, tally) unless board.cells[row - 1] == nil
+			board.cells[row - 1] == nil ? tally : check_up(row - 1, column, tally)
 		else
 			return tally
 		end
@@ -112,7 +112,7 @@ class Game
 	def check_down(row, column, tally)
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
-			check_up(row + 1, column, tally) unless board.cells[row + 1] == nil
+			board.cells[row + 1] == nil ? tally : check_down(row + 1, column, tally)
 		else
 			return tally
 		end

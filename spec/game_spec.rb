@@ -113,24 +113,38 @@ describe Game do
 		before do
 			player1 = Player.new("wes", "X")
 			game.instance_variable_set(:@current_player, player1)
-			game.board.set_token(1, "X")
-			game.board.set_token(2, "X")
+			game.board.set_token(1, "O")
+			game.board.set_token(2, "O")
 			game.board.set_token(3, "X")
+			game.board.set_token(3, "O")
 			game.board.set_token(4, "X")
-			game.board.set_token(4, "O")
+			game.board.set_token(0, "O")
+			game.board.set_token(0, "O")
+			game.board.set_token(1, "O")
+			game.board.set_token(2, "O")
+			game.board.set_token(5, "X")
+			game.board.set_token(6, "X")
 		end
 
-		context 'when checking a row with 4 subsequent tokens' do
+		context 'when checking a row with 4 subsequent tokens on west boundary' do
 			it 'returns true' do
-				cords = [6, 1]
+				game.current_player.instance_variable_set(:@token, "O")
+				cords = [5, 1]
+				expect(game.check_horizontal(cords)).to be true
+			end
+		end
+
+		context 'when checking a row with 4 subsequent tokens on east boundary' do
+			it 'returns true' do
+				cords = [6, 3]
 				expect(game.check_horizontal(cords)).to be true
 			end
 		end
 
 		context 'when checking a row with less than 4 subsequent tokens' do
 			it 'returns false' do
-				game.board.set_token(1, "X")
-				cords = [5, 1]
+				game.current_player.instance_variable_set(:@token, "O")
+				cords = [6, 0]
 				expect(game.check_horizontal(cords)).to be false
 			end
 		end
@@ -146,8 +160,14 @@ describe Game do
 			game.board.set_token(3, "X")
 			game.board.set_token(3, "X")
 			game.board.set_token(3, "X")
-			game.board.set_token(4, "X")
 			game.board.set_token(2, "X")
+			game.board.set_token(4, "X")
+			game.board.set_token(5, "O")
+			game.board.set_token(5, "X")
+			game.board.set_token(5, "X")
+			game.board.set_token(5, "O")
+			game.board.set_token(5, "O")
+			game.board.set_token(5, "O")
 		end
 
 		context 'when checking a column with 4 subsequent tokens' do
@@ -157,9 +177,17 @@ describe Game do
 			end
 
 			context 'when checking a column with less than 4 subsequent tokens' do
-				xit 'returns false' do
+				it 'returns false' do
 					cords = [6, 2]
 					expect(game.check_vertical(cords)).to be false
+				end
+			end
+
+			context 'when testing for edge case at top of board' do
+				it 'does not return any errors' do
+					cords = [2, 5]
+					expect(game).not_to receive(:puts)
+					game.check_vertical(cords)
 				end
 			end
 		end
