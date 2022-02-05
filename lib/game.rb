@@ -54,18 +54,28 @@ class Game
 		column = cords[1]
 		tally_u = check_up(row, column, tally)
 		tally_d = check_down(row, column, tally)
-		binding.pry
+		# binding.pry
 		((tally_u + tally_d) - 1) >= 4 ? true : false
 	end
 
-	def check_vertical(cords)
+	def check_ne_sw(cords)
 		tally = 0
 		row = cords[0]
 		column = cords[1]
-		tally_u = check_up(row, column, tally)
-		tally_d = check_down(row, column, tally)
+		tally_ne = check_ne(row, column, tally)
+		tally_sw = check_sw(row, column, tally)
 		# binding.pry
-		((tally_u + tally_d) - 1) >= 4 ? true : false
+		((tally_ne + tally_sw) - 1) >= 4 ? true : false
+	end
+
+	def check_nw_se(cords)
+		tally = 0
+		row = cords[0]
+		column = cords[1]
+		tally_nw = check_nw(row, column, tally)
+		tally_se = check_se(row, column, tally)
+		# binding.pry
+		((tally_nw + tally_se) - 1) >= 4 ? true : false
 	end
 
 	
@@ -125,6 +135,46 @@ class Game
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row + 1] == nil ? tally : check_down(row + 1, column, tally)
+		else
+			return tally
+		end
+	end
+
+	def check_ne(row, column, tally)
+		# binding.pry
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			board.cells[row - 1] == nil || board.cells[row][column + 1] == nil ? tally : check_ne(row - 1, column + 1, tally)
+		else
+			return tally
+		end
+	end
+
+	def check_sw(row, column, tally)
+		# binding.pry
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			board.cells[row + 1] == nil || board.cells[row][column - 1] == nil ? tally : check_sw(row + 1, column - 1, tally)
+		else
+			return tally
+		end
+	end
+
+	def check_nw(row, column, tally)
+		# binding.pry
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			board.cells[row - 1] == nil || board.cells[row][column - 1] == nil ? tally : check_sw(row - 1, column - 1, tally)
+		else
+			return tally
+		end
+	end
+
+	def check_se(row, column, tally)
+		# binding.pry
+		if board.cells[row][column].value == @current_player.token
+			tally += 1
+			board.cells[row + 1] == nil || board.cells[row][column + 1] == nil ? tally : check_sw(row + 1, column + 1, tally)
 		else
 			return tally
 		end

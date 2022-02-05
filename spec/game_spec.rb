@@ -216,7 +216,7 @@ describe Game do
 		end
 	end
 
-	describe '#check_NE_SW' do 
+	describe '#check_ne_sw' do 
 
 		before do
 			player2 = Player.new("bria", "O")
@@ -226,19 +226,19 @@ describe Game do
 		context 'when checking a diagonal with 4 or more tokens going NE to SW' do
 			it 'returns true' do
 				cords = [4, 2]
-				expect(game.check_NE_SW(cords)).to be true
+				expect(game.check_ne_sw(cords)).to be true
 			end
 		end
 
 		context 'when checking a diagonal with less than 4 tokens going NE to SW' do
-			xit 'returns false' do
+			it 'returns false' do
 				cords = [5, 2]
-				expect(game.check_NE_SW(cords)).to be false
+				expect(game.check_ne_sw(cords)).to be false
 			end
 		end
 	end
 
-	describe '#check_NW_SE' do
+	describe '#check_nw_se' do
 
 		before do
 			player1 = Player.new("wes", "X")
@@ -246,16 +246,16 @@ describe Game do
 		end
 
 		context 'when checking a diagonal with 4 or more tokens going NW to SE' do
-			xit 'returns true' do
+			it 'returns true' do
 				cords = [3, 2]
-				expect(game.check_NW_SE(cords)).to be true
+				expect(game.check_nw_se(cords)).to be true
 			end
 		end
 
 		context 'when checking a diagonal with less than 4 tokens going NW to SE' do
-			xit 'returns false' do
+			it 'returns false' do
 				cords = [4,4]
-				expect(game.check_NW_SE(cords)).to be false
+				expect(game.check_nw_se(cords)).to be false
 			end
 		end
 	end
