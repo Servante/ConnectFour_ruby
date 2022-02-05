@@ -39,12 +39,23 @@ class Game
 
 	def check_horizontal(cords)
 		tally = 0
+		# binding.pry
 		row = cords[0]
 		column = cords[1]
 		tally_r = check_right(row, column, tally)
 		tally_l = check_left(row, column, tally)
 		# binding.pry
 		((tally_r + tally_l) - 1) >= 4 ? true : false
+	end
+
+	def check_vertical(cords)
+		tally = 0
+		row = cords[0]
+		column = cords[1]
+		tally_u = check_up(row, column, tally)
+		tally_d = check_down(row, column, tally)
+		# binding.pry
+		((tally_u + tally_d) - 1) >= 4 ? true : false
 	end
 
 	def check_vertical(cords)
@@ -82,6 +93,7 @@ class Game
 	end
 
 	def check_right(row, column, tally)
+		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row][column + 1] == nil ? tally : check_right(row, column + 1, tally)
