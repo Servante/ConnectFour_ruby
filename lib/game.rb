@@ -30,17 +30,15 @@ class Game
 
 	def player_turn
 		@board.show
-		column = player_input(@current_player)
-		
-		board.set_token(column, @current_player.token)
-		#board.checkwin(column, )
-		@current_player = switch_current_player
+		column = player_input(@current_player)		
+		coords = board.set_token(column, @current_player.token)
+		check_win(coords)
 	end
 
-	# def check_win(cords)
-	# 	win = []
-	# 	win << 
-	# end
+	def check_win(coords)
+		# win = []
+		# win << 
+	end
 
 	def check_horizontal(cords)
 		tally = 0

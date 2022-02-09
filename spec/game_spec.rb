@@ -124,6 +124,10 @@ describe Game do
 			game.player_turn
 		end
 
+		it 'calls #check_win on the returned coordinates' do
+			expect(game).to receive(:check_win)
+			game.player_turn
+		end
 	end
 
 # 	describe '#check_right' do
