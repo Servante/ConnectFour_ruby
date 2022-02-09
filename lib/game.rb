@@ -31,7 +31,7 @@ class Game
 	def player_turn
 		@board.show
 		column = player_input(@current_player)
-		# token = @current_player.token
+		
 		board.set_token(column, @current_player.token)
 		#board.checkwin(column, )
 		@current_player = switch_current_player
@@ -93,6 +93,11 @@ class Game
 	end
 
 	def game_turns
+		until board.board_full?
+			player_turn
+			switch_current_player
+		end
+		game_finish("tie")
 	end
 
 	def switch_current_player
