@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"check_nw",
+				"check_nw"
+			],
+			[
 				"check",
 				"check_left"
 			],
@@ -312,14 +316,13 @@
 			}
 		},
 		{
-			"contents": "# frozen_string_literal: true\nrequire_relative 'display.rb'\n\n\n\nclass Game\n\tinclude Display\n\tattr_accessor :player1, :player2, :current_player, :board\n\n\tdef initialize\n\t\t@player1 = nil\n\t\t@player2 = nil\t\n\t\t@current_player = nil\n\t\t@board = Board.new\n\tend\n\n\tdef play_game\n\tend\n\n\n\tdef player_creation\n\t\tplayer_number = player1.nil? ? 1 : 2\n\t\tdisplay_new_player(player_number)\n\t\tname = gets.chomp\n\t\ttoken = player_number == 1 ? \"\\e[32m\\u2620\\e[0m\" : \"\\e[35m\\u2620\\e[0m\"\n\t\tplayer = Player.new(name, token)\n\t\t@current_player = player if @current_player.nil?\n\t\treturn player\n\tend\n\n\tdef player_turn\n\t\t@board.show\n\t\tcolumn = player_input(@current_player)\n\t\t# token = @current_player.token\n\t\tboard.set_token(column, @current_player.token)\n\t\t#board.checkwin(column, )\n\t\t@current_player = switch_current_player\n\tend\n\n\tdef check_horizontal(cords)\n\t\ttally = 0\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_r = check_right(row, column, tally)\n\t\ttally_l = check_left(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_r + tally_l) - 1) >= 4 ? true : false\n\tend\n\n\tdef check_vertical(cords)\n\t\ttally = 0\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_u = check_up(row, column, tally)\n\t\ttally_d = check_down(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_u + tally_d) - 1) >= 4 ? true : false\n\tend\n\n\tdef check_vertical(cords)\n\t\ttally = 0\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_u = check_up(row, column, tally)\n\t\ttally_d = check_down(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_u + tally_d) - 1) >= 4 ? true : false\n\tend\n\n\t\n\tprivate\n\n\tdef game_setup\n\t\tdisplay_introduction\n\t\t@player1 = player_creation\n\t\t@player2 = player_creation\n\tend\n\n\tdef game_turns\n\tend\n\n\tdef switch_current_player\n\t\t@current_player = @current_player == @player1 ? @player2 : @player1\n\tend\n\n\tdef player_input(player)\n\t\tdisplay_move_prompt(@current_player)\n\t\tinput = gets.chomp.to_i\n\t\treturn input unless board.column_full?((input - 1))\n\t\tdisplay_invalid_input\n\t\tplayer_input(player)\n\tend\n\n\tdef check_right(row, column, tally)\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row][column + 1] == nil ? tally : check_right(row, column + 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_left(row, column, tally)\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row][column - 1] == nil ? tally : check_left(row, column - 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_up(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row - 1] == nil ? tally : check_up(row - 1, column, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_down(row, column, tally)\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row + 1] == nil ? tally : check_down(row + 1, column, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\nend",
+			"contents": "# frozen_string_literal: true\nrequire_relative 'display.rb'\n\n\n\nclass Game\n\tinclude Display\n\tattr_accessor :player1, :player2, :current_player, :board\n\n\tdef initialize\n\t\t@player1 = nil\n\t\t@player2 = nil\t\n\t\t@current_player = nil\n\t\t@board = Board.new\n\tend\n\n\tdef play_game\n\tend\n\n\n\tdef player_creation\n\t\tplayer_number = player1.nil? ? 1 : 2\n\t\tdisplay_new_player(player_number)\n\t\tname = gets.chomp\n\t\ttoken = player_number == 1 ? \"\\e[32m\\u2620\\e[0m\" : \"\\e[35m\\u2620\\e[0m\"\n\t\tplayer = Player.new(name, token)\n\t\t@current_player = player if @current_player.nil?\n\t\treturn player\n\tend\n\n\tdef player_turn\n\t\t@board.show\n\t\tcolumn = player_input(@current_player)\n\t\t# token = @current_player.token\n\t\tboard.set_token(column, @current_player.token)\n\t\t#board.checkwin(column, )\n\t\t@current_player = switch_current_player\n\tend\n\n\tdef check_win(cords)\n\t\twin = []\n\t\twin << \n\tend\n\n\tdef check_horizontal(cords)\n\t\ttally = 0\n\t\t# binding.pry\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_r = check_right(row, column, tally)\n\t\ttally_l = check_left(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_r + tally_l) - 1) >= 4 ? true : false\n\tend\n\n\tdef check_vertical(cords)\n\t\ttally = 0\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_u = check_up(row, column, tally)\n\t\ttally_d = check_down(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_u + tally_d) - 1) >= 4 ? true : false\n\tend\n\n\tdef check_ne_sw(cords)\n\t\ttally = 0\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_ne = check_ne(row, column, tally)\n\t\ttally_sw = check_sw(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_ne + tally_sw) - 1) >= 4 ? true : false\n\tend\n\n\tdef check_nw_se(cords)\n\t\ttally = 0\n\t\trow = cords[0]\n\t\tcolumn = cords[1]\n\t\ttally_nw = check_nw(row, column, tally)\n\t\ttally_se = check_se(row, column, tally)\n\t\t# binding.pry\n\t\t((tally_nw + tally_se) - 1) >= 4 ? true : false\n\tend\n\n\t\n\tprivate\n\n\tdef game_setup\n\t\tdisplay_introduction\n\t\t@player1 = player_creation\n\t\t@player2 = player_creation\n\tend\n\n\tdef game_turns\n\tend\n\n\tdef switch_current_player\n\t\t@current_player = @current_player == @player1 ? @player2 : @player1\n\tend\n\n\tdef player_input(player)\n\t\tdisplay_move_prompt(@current_player)\n\t\tinput = gets.chomp.to_i\n\t\treturn input unless board.column_full?((input - 1))\n\t\tdisplay_invalid_input\n\t\tplayer_input(player)\n\tend\n\n\tdef check_right(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row][column + 1] == nil ? tally : check_right(row, column + 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_left(row, column, tally)\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row][column - 1] == nil ? tally : check_left(row, column - 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_up(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row - 1] == nil ? tally : check_up(row - 1, column, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_down(row, column, tally)\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row + 1] == nil ? tally : check_down(row + 1, column, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_ne(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row - 1] == nil || board.cells[row][column + 1] == nil ? tally : check_ne(row - 1, column + 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_sw(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row + 1] == nil || board.cells[row][column - 1] == nil ? tally : check_sw(row + 1, column - 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_nw(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row - 1] == nil || board.cells[row][column - 1] == nil ? tally : check_sw(row - 1, column - 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\n\n\tdef check_se(row, column, tally)\n\t\t# binding.pry\n\t\tif board.cells[row][column].value == @current_player.token\n\t\t\ttally += 1\n\t\t\tboard.cells[row + 1] == nil || board.cells[row][column + 1] == nil ? tally : check_sw(row + 1, column + 1, tally)\n\t\telse\n\t\t\treturn tally\n\t\tend\n\tend\nend",
 			"file": "lib/game.rb",
-			"file_size": 2626,
-			"file_write_time": 132884954668606555,
+			"file_size": 4224,
+			"file_write_time": 132885628157166997,
 			"settings":
 			{
-				"buffer_size": 2856,
-				"encoding": "UTF-8",
+				"buffer_size": 4273,
 				"line_ending": "Unix"
 			}
 		},
@@ -363,7 +366,7 @@
 			"file": "spec/game_spec.rb",
 			"settings":
 			{
-				"buffer_size": 6294,
+				"buffer_size": 6447,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -622,7 +625,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -631,15 +634,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2856,
+						"buffer_size": 4273,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1306,
-								1306
+								801,
+								801
 							]
 						],
 						"settings":
@@ -648,10 +651,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 636.0,
+						"translation.y": 171.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -677,10 +680,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 242.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -708,7 +711,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -736,7 +739,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -765,7 +768,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -780,15 +783,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6294,
+						"buffer_size": 6447,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3861,
-								3861
+								5056,
+								5057
 							]
 						],
 						"settings":
@@ -797,10 +800,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2622.0,
+						"translation.y": 3534.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -829,7 +832,7 @@
 						"translation.y": 114.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{

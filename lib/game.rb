@@ -37,6 +37,11 @@ class Game
 		@current_player = switch_current_player
 	end
 
+	# def check_win(cords)
+	# 	win = []
+	# 	win << 
+	# end
+
 	def check_horizontal(cords)
 		tally = 0
 		# binding.pry
@@ -97,7 +102,7 @@ class Game
 	def player_input(player)
 		display_move_prompt(@current_player)
 		input = gets.chomp.to_i
-		return input unless board.column_full?((input - 1))
+		return (input - 1) unless board.column_full?((input - 1))
 		display_invalid_input
 		player_input(player)
 	end
