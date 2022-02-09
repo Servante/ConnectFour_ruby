@@ -107,6 +107,13 @@ describe Board do
 				board.set_token(3, token)
 				expect(board.cells[6][3].stackable).to be(false)
 			end
+
+			it 'returns the modified cells coordinates' do 
+				token = "X"
+				coords = board.set_token(3, token)
+				expect(coords).to eq([6,3])
+			end
+
 		end
 
 		context 'when set_token is called on a column with two tokens existing' do
