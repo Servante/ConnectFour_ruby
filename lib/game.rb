@@ -17,6 +17,7 @@ class Game
 	def play_game
 		game_setup
 		game_turns
+		game_finish
 	end
 
 	def player_creation
@@ -33,10 +34,10 @@ class Game
 		@board.show
 		column = player_input(@current_player)		
 		coords = board.set_token(column, @current_player.token)
-		check_win(coords)
+		return coords
 	end
 
-	def check_win(coords)
+	def check_win(coords) #check rspec for the removal of using game_finish
 		# binding.pry
 		win = []
 		win << check_horizontal(coords)
@@ -44,7 +45,6 @@ class Game
 		win << check_ne_sw(coords)
 		win << check_nw_se(coords)
 		result = win.include?(true) ? true : false
-		game_finish("player_win") if result = true
 	end
 
 	
@@ -58,10 +58,12 @@ class Game
 
 	def game_turns
 		until board.board_full?
-			player_turn
+			results = player_turn
+			# binding.pry
+			break if check_win(results)
 			switch_current_player
 		end
-		game_finish("tie")
+		game_finish
 	end
 
 	def switch_current_player
@@ -76,9 +78,9 @@ class Game
 		player_input(player)
 	end
 
-	def game_finish(outcome)
+	def game_finish
 		board.show
-		outcome == "player_win" ? display_win : display_tie
+		board.board_full? ? display_tie : display_win 
 	end
 
 	def check_horizontal(cords)

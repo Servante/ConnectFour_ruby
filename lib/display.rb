@@ -15,8 +15,8 @@ module Display
 		puts "\n\nThe game has been tied."
 	end
 
-	def display_win(player)
-		puts "\n\nCongratulations #{player.name.capitalize}! You won!"
+	def display_win
+		puts "\n\nCongratulations, #{current_player.name.capitalize}! You won!"
 	end
 
 	def display_move_prompt(player)
