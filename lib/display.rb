@@ -11,9 +11,9 @@ module Display
 		puts "\n\nPlease enter the name for player ##{number}"
 	end
 
-	# def display_tie
-	# 	puts "\n\nWhat a surprise. We have a tie."
-	# end
+	def display_tie
+		puts "\n\nThe game has been tied."
+	end
 
 	def display_win(player)
 		puts "\n\nCongratulations #{player.name.capitalize}! You won!"

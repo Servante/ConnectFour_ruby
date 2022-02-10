@@ -15,8 +15,9 @@ class Game
 	end
 
 	def play_game
+		game_setup
+		game_turns
 	end
-
 
 	def player_creation
 		player_number = player1.nil? ? 1 : 2
@@ -42,7 +43,8 @@ class Game
 		win << check_vertical(coords)
 		win << check_ne_sw(coords)
 		win << check_nw_se(coords)
-		win.include?(true) ? true : false
+		result = win.include?(true) ? true : false
+		game_finish("player_win") if result = true
 	end
 
 	
@@ -72,6 +74,11 @@ class Game
 		return (input - 1) unless board.column_full?((input - 1))
 		display_invalid_input
 		player_input(player)
+	end
+
+	def game_finish(outcome)
+		board.show
+		outcome == "player_win" ? display_win : display_tie
 	end
 
 	def check_horizontal(cords)

@@ -199,11 +199,6 @@ end
 # 		before do
 # 			player1 = Player.new("wes", "X")
 # 			game.instance_variable_set(:@current_player, player1)
-# 			game.board.set_token(1, "X")
-# 			game.board.set_token(2, "X")
-# 			game.board.set_token(3, "X")
-# 			game.board.set_token(4, "O")
-# 			game.board.set_token(1, "X")
 # 		end
 
 
