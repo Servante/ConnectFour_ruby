@@ -117,9 +117,11 @@ describe Game do
 			game.instance_variable_set(:@current_player, player1)
 			allow(game.board).to receive(:show)
 			allow(game).to receive(:player_input).and_return(3)
+			allow(game).to receive(:check_win)
 		end
 
-		it 'sends message to update the board' do			
+		it 'sends message to update the board' do
+		# binding.pry			
 			expect(game.board).to receive(:set_token)
 			game.player_turn
 		end
@@ -129,6 +131,66 @@ describe Game do
 			game.player_turn
 		end
 	end
+
+
+	describe '#check_win' do
+
+		before do 
+			player1 = Player.new("wes", "X")
+			game.instance_variable_set(:@current_player, player1)
+		end
+
+
+		context 'when checking using checkwin' do
+			it 'returns true on a horizontal' do
+				coords = [4,4]
+				expect(game.check_win(coords)).to be true
+			end
+
+			it 'returns true on a vertical' do
+				coords = [3, 0]
+				expect(game.check_win(coords)).to be true
+			end
+
+			it 'returns true on a ne_sw diagonal' do
+				coords = [5, 4]
+				expect(game.check_win(coords)).to be true
+			end
+
+			it 'returns true on a nw_se diagonal' do
+				coords = [3, 2]
+				expect(game.check_win(coords)).to be true
+			end
+
+			it 'returns false on a horizontal with less than four' do
+				coords = [5, 5]
+				expect(game.check_win(coords)).to be false
+			end
+
+			it 'returns false on a vertical with less than four' do
+				coords = [5, 5]
+				expect(game.check_win(coords)).to be false
+			end
+
+			it 'returns false on a ne_sw diagonal with less than four' do
+				coords = [5, 5]
+				expect(game.check_win(coords)).to be false
+			end
+
+			it 'returns false on nw_se diagonal with less than four' do 
+				coords = [5, 5]
+				expect(game.check_win(coords)).to be false
+			end
+		end
+
+
+	end
+end
+
+
+## tests for private methods used while building
+
+
 
 # 	describe '#check_right' do
 
@@ -160,111 +222,107 @@ describe Game do
 # 		end
 # 	end
 
-	describe '#check_horizontal' do 
 
-		before do
-			player1 = Player.new("wes", "X")
-			game.instance_variable_set(:@current_player, player1)
-		end
+# describe '#check_horizontal' do 
 
-		context 'when checking a row with 4 subsequent tokens on west boundary' do
-			it 'returns true' do
-				# game.current_player.instance_variable_set(:@token, "X")
-				cords = [2, 0]
-				expect(game.check_horizontal(cords)).to be true
-			end
-		end
+# 		before do
+# 			player1 = Player.new("wes", "X")
+# 			game.instance_variable_set(:@current_player, player1)
+# 		end
 
-		context 'when checking a row with 4 subsequent tokens on east boundary' do
-			it 'returns true' do
-				cords = [4, 3]
-				expect(game.check_horizontal(cords)).to be true
-			end
-		end
+# 		context 'when checking a row with 4 subsequent tokens on west boundary' do
+# 			it 'returns true' do
+# 				# game.current_player.instance_variable_set(:@token, "X")
+# 				cords = [2, 0]
+# 				expect(game.check_horizontal(cords)).to be true
+# 			end
+# 		end
 
-		context 'when checking a row with less than 4 subsequent tokens' do
-			it 'returns false' do
-				cords = [1, 0]
-				expect(game.check_horizontal(cords)).to be false
-			end
-		end
-	end
+# 		context 'when checking a row with 4 subsequent tokens on east boundary' do
+# 			it 'returns true' do
+# 				cords = [4, 3]
+# 				expect(game.check_horizontal(cords)).to be true
+# 			end
+# 		end
 
-	describe '#check_vertical' do
+# 		context 'when checking a row with less than 4 subsequent tokens' do
+# 			it 'returns false' do
+# 				cords = [1, 0]
+# 				expect(game.check_horizontal(cords)).to be false
+# 			end
+# 		end
+# 	end
 
-		before do
-			player1 = Player.new("wes", "X")
-			game.instance_variable_set(:@current_player, player1)
-		end
+# 	describe '#check_vertical' do
 
-		context 'when checking a column with 4 subsequent tokens' do
-			it 'returns true' do
-				cords = [1, 0]
-				expect(game.check_vertical(cords)).to be true
-			end
-		end
+# 		before do
+# 			player1 = Player.new("wes", "X")
+# 			game.instance_variable_set(:@current_player, player1)
+# 		end
 
-		context 'when checking a column with less than 4 subsequent tokens' do
-			it 'returns false' do
-				cords = [3, 2]
-				expect(game.check_vertical(cords)).to be false
-			end
-		end
+# 		context 'when checking a column with 4 subsequent tokens' do
+# 			it 'returns true' do
+# 				cords = [1, 0]
+# 				expect(game.check_vertical(cords)).to be true
+# 			end
+# 		end
 
-		context 'when testing a column with 4 subsequent tokens at top of board' do
-			it 'returns true' do
-				# game.	.instance_variable_set(:@token, "O")
-				cords = [1, 6]
-				expect(game.check_vertical(cords)).to be true
-			end
-		end
-	end
+# 		context 'when checking a column with less than 4 subsequent tokens' do
+# 			it 'returns false' do
+# 				cords = [3, 2]
+# 				expect(game.check_vertical(cords)).to be false
+# 			end
+# 		end
 
-	describe '#check_ne_sw' do 
+# 		context 'when testing a column with 4 subsequent tokens at top of board' do
+# 			it 'returns true' do
+# 				# game.	.instance_variable_set(:@token, "O")
+# 				cords = [1, 6]
+# 				expect(game.check_vertical(cords)).to be true
+# 			end
+# 		end
+# 	end
 
-		before do
-			player2 = Player.new("bria", "O")
-			game.instance_variable_set(:@current_player, player2)
-		end
+# 	describe '#check_ne_sw' do 
 
-		context 'when checking a diagonal with 4 or more tokens going NE to SW' do
-			it 'returns true' do
-				cords = [4, 2]
-				expect(game.check_ne_sw(cords)).to be true
-			end
-		end
+# 		before do
+# 			player2 = Player.new("bria", "O")
+# 			game.instance_variable_set(:@current_player, player2)
+# 		end
 
-		context 'when checking a diagonal with less than 4 tokens going NE to SW' do
-			it 'returns false' do
-				cords = [5, 2]
-				expect(game.check_ne_sw(cords)).to be false
-			end
-		end
-	end
+# 		context 'when checking a diagonal with 4 or more tokens going NE to SW' do
+# 			it 'returns true' do
+# 				cords = [4, 2]
+# 				expect(game.check_ne_sw(cords)).to be true
+# 			end
+# 		end
 
-	describe '#check_nw_se' do
+# 		context 'when checking a diagonal with less than 4 tokens going NE to SW' do
+# 			it 'returns false' do
+# 				cords = [5, 2]
+# 				expect(game.check_ne_sw(cords)).to be false
+# 			end
+# 		end
+# 	end
 
-		before do
-			player1 = Player.new("wes", "X")
-			game.instance_variable_set(:@current_player, player1)
-		end
+# 	describe '#check_nw_se' do
 
-		context 'when checking a diagonal with 4 or more tokens going NW to SE' do
-			it 'returns true' do
-				cords = [3, 2]
-				expect(game.check_nw_se(cords)).to be true
-			end
-		end
+# 		before do
+# 			player1 = Player.new("wes", "X")
+# 			game.instance_variable_set(:@current_player, player1)
+# 		end
 
-		context 'when checking a diagonal with less than 4 tokens going NW to SE' do
-			it 'returns false' do
-				cords = [4,4]
-				expect(game.check_nw_se(cords)).to be false
-			end
-		end
-	end
-end
+# 		context 'when checking a diagonal with 4 or more tokens going NW to SE' do
+# 			it 'returns true' do
+# 				cords = [3, 2]
+# 				expect(game.check_nw_se(cords)).to be true
+# 			end
+# 		end
 
-
-
-
+# 		context 'when checking a diagonal with less than 4 tokens going NW to SE' do
+# 			it 'returns false' do
+# 				cords = [4,4]
+# 				expect(game.check_nw_se(cords)).to be false
+# 			end
+# 		end
+# 	end

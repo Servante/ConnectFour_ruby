@@ -36,8 +36,42 @@ class Game
 	end
 
 	def check_win(coords)
-		# win = []
-		# win << 
+		# binding.pry
+		win = []
+		win << check_horizontal(coords)
+		win << check_vertical(coords)
+		win << check_ne_sw(coords)
+		win << check_nw_se(coords)
+		win.include?(true) ? true : false
+	end
+
+	
+	private
+
+	def game_setup
+		display_introduction
+		@player1 = player_creation
+		@player2 = player_creation
+	end
+
+	def game_turns
+		until board.board_full?
+			player_turn
+			switch_current_player
+		end
+		game_finish("tie")
+	end
+
+	def switch_current_player
+		@current_player = @current_player == @player1 ? @player2 : @player1
+	end
+
+	def player_input(player)
+		display_move_prompt(@current_player)
+		input = gets.chomp.to_i
+		return (input - 1) unless board.column_full?((input - 1))
+		display_invalid_input
+		player_input(player)
 	end
 
 	def check_horizontal(cords)
@@ -79,35 +113,6 @@ class Game
 		tally_se = check_se(row, column, tally)
 		# binding.pry
 		((tally_nw + tally_se) - 1) >= 4 ? true : false
-	end
-
-	
-	private
-
-	def game_setup
-		display_introduction
-		@player1 = player_creation
-		@player2 = player_creation
-	end
-
-	def game_turns
-		until board.board_full?
-			player_turn
-			switch_current_player
-		end
-		game_finish("tie")
-	end
-
-	def switch_current_player
-		@current_player = @current_player == @player1 ? @player2 : @player1
-	end
-
-	def player_input(player)
-		display_move_prompt(@current_player)
-		input = gets.chomp.to_i
-		return (input - 1) unless board.column_full?((input - 1))
-		display_invalid_input
-		player_input(player)
 	end
 
 	def check_right(row, column, tally)
