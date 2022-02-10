@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'cell.rb'
-require 'pry'
-
-	def reload
-		load 'board.rb'	
-	end
-
 
 class Board
 		attr_accessor :cells

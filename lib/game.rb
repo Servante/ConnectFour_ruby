@@ -37,8 +37,7 @@ class Game
 		return coords
 	end
 
-	def check_win(coords) #check rspec for the removal of using game_finish
-		# binding.pry
+	def check_win(coords)
 		win = []
 		win << check_horizontal(coords)
 		win << check_vertical(coords)
@@ -59,7 +58,7 @@ class Game
 	def game_turns
 		until board.board_full?
 			results = player_turn
-			# binding.pry
+
 			break if check_win(results)
 			switch_current_player
 		end
@@ -83,49 +82,43 @@ class Game
 		board.board_full? ? display_tie : display_win 
 	end
 
-	def check_horizontal(cords)
+	def check_horizontal(coords)
 		tally = 0
-		# binding.pry
-		row = cords[0]
-		column = cords[1]
+		row = coords[0]
+		column = coords[1]
 		tally_r = check_right(row, column, tally)
 		tally_l = check_left(row, column, tally)
-		# binding.pry
 		((tally_r + tally_l) - 1) >= 4 ? true : false
 	end
 
-	def check_vertical(cords)
+	def check_vertical(coords)
 		tally = 0
-		row = cords[0]
-		column = cords[1]
+		row = coords[0]
+		column = coords[1]
 		tally_u = check_up(row, column, tally)
 		tally_d = check_down(row, column, tally)
-		# binding.pry
 		((tally_u + tally_d) - 1) >= 4 ? true : false
 	end
 
-	def check_ne_sw(cords)
+	def check_ne_sw(coords)
 		tally = 0
-		row = cords[0]
-		column = cords[1]
+		row = coords[0]
+		column = coords[1]
 		tally_ne = check_ne(row, column, tally)
 		tally_sw = check_sw(row, column, tally)
-		# binding.pry
 		((tally_ne + tally_sw) - 1) >= 4 ? true : false
 	end
 
-	def check_nw_se(cords)
+	def check_nw_se(coords)
 		tally = 0
-		row = cords[0]
-		column = cords[1]
+		row = coords[0]
+		column = coords[1]
 		tally_nw = check_nw(row, column, tally)
 		tally_se = check_se(row, column, tally)
-		# binding.pry
 		((tally_nw + tally_se) - 1) >= 4 ? true : false
 	end
 
 	def check_right(row, column, tally)
-		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row][column + 1] == nil ? tally : check_right(row, column + 1, tally)
@@ -144,7 +137,6 @@ class Game
 	end
 
 	def check_up(row, column, tally)
-		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row - 1] == nil ? tally : check_up(row - 1, column, tally)
@@ -163,7 +155,6 @@ class Game
 	end
 
 	def check_ne(row, column, tally)
-		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row - 1] == nil || board.cells[row][column + 1] == nil ? tally : check_ne(row - 1, column + 1, tally)
@@ -173,7 +164,6 @@ class Game
 	end
 
 	def check_sw(row, column, tally)
-		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row + 1] == nil || board.cells[row][column - 1] == nil ? tally : check_sw(row + 1, column - 1, tally)
@@ -183,7 +173,6 @@ class Game
 	end
 
 	def check_nw(row, column, tally)
-		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row - 1] == nil || board.cells[row][column - 1] == nil ? tally : check_sw(row - 1, column - 1, tally)
@@ -193,7 +182,6 @@ class Game
 	end
 
 	def check_se(row, column, tally)
-		# binding.pry
 		if board.cells[row][column].value == @current_player.token
 			tally += 1
 			board.cells[row + 1] == nil || board.cells[row][column + 1] == nil ? tally : check_sw(row + 1, column + 1, tally)
